@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { lastValueFrom } from 'rxjs/internal/lastValueFrom';
 
 @Component({
   // matches that in index.html file
@@ -13,15 +14,20 @@ export class App implements OnInit {
   // templateUrl is considered child to this class
   // so app.html can access the title property
   protected readonly title = 'Dating app';
-  protected members: any;
+  protected members = signal<any>([]);
 
-  ngOnInit(): void {
-    // http requests will auto unsubscribe 
-    this.http.get('https://localhost:5001/api/members').subscribe({
-      next: (response) => console.log(response),
-      error: (error) => console.error(error),
-      complete: () => console.log('fetch members request completed')
-    });
+  async ngOnInit() {
+    this.members.set(await this.getMembers());
+  }
+  
+  // return a promise
+  async getMembers() {
+    try {
+      return lastValueFrom(this.http.get('https://localhost:5001/api/members'));
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 
 }

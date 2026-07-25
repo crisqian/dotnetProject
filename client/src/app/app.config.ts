@@ -9,5 +9,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideHttpClient()
+    // by default zoneless provider is provided in angular 22
   ]
 };
