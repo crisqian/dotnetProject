@@ -1,5 +1,8 @@
+<!-- view file of app component -->
+
 <div class="card bg-base-100 w-1/2 mx-auto p-10 mt-10 shadow-xl">
     <h1 class="text-3xl text-red-500 font-light">{{ title}}</h1>
+    <p class="text-lg text-gray-500 font-light">{{ description}}</p>
     <ul class="list">
       @for (member of members(); track member.id) {
 
@@ -15,7 +18,131 @@
 
 
 
-
-
-
 <button class="btn btn-primary">Primary</button>
+
+
+<div class="min-h-screen bg-base-200">
+  <!-- Top navigation -->
+  <div class="navbar border-b border-base-300 bg-base-100 px-6 shadow-sm">
+    <div class="flex-1">
+      <a class="text-xl font-semibold tracking-tight">
+        Pet Permit Portal
+      </a>
+    </div>
+
+    <div class="flex-none">
+      <span class="badge badge-warning badge-outline">
+        Work in progress
+      </span>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <main class="mx-auto max-w-5xl px-6 py-12">
+    <!-- Hero -->
+    <section
+      class="mb-8 overflow-hidden rounded-2xl bg-primary px-8 py-10 text-primary-content shadow-lg"
+    >
+      <div class="max-w-2xl">
+        <p class="mb-3 text-sm font-semibold uppercase tracking-widest opacity-80">
+          Public Service Application System
+        </p>
+
+        <h1 class="mb-4 text-4xl font-bold leading-tight md:text-5xl">
+          Apply for a residential pet permit
+        </h1>
+
+        <p class="max-w-xl text-lg leading-7 opacity-90">
+          A prototype portal for residents to submit pet permit applications
+          and for caseworkers to review them.
+        </p>
+      </div>
+    </section>
+
+    <!-- Prototype information -->
+    <section class="mb-8 grid gap-4 sm:grid-cols-3">
+      <div class="stat rounded-xl border border-base-300 bg-base-100 shadow-sm">
+        <div class="stat-title">Frontend</div>
+        <div class="stat-value text-2xl">Angular</div>
+        <div class="stat-desc">Client application</div>
+      </div>
+
+      <div class="stat rounded-xl border border-base-300 bg-base-100 shadow-sm">
+        <div class="stat-title">Backend</div>
+        <div class="stat-value text-2xl">.NET</div>
+        <div class="stat-desc">ASP.NET Core API</div>
+      </div>
+
+      <div class="stat rounded-xl border border-base-300 bg-base-100 shadow-sm">
+        <div class="stat-title">Current milestone</div>
+        <div class="stat-value text-2xl">API</div>
+        <div class="stat-desc">Displaying system users</div>
+      </div>
+    </section>
+
+    <!-- User list -->
+    <section class="card border border-base-300 bg-base-100 shadow-md">
+      <div class="card-body p-0">
+        <div
+          class="flex flex-col gap-2 border-b border-base-300 px-6 py-5 sm:flex-row sm:items-center sm:justify-between"
+        >
+          <div>
+            <h2 class="card-title text-2xl">System users</h2>
+            <p class="mt-1 text-sm text-base-content/60">
+              Users retrieved from the ASP.NET Core API
+            </p>
+          </div>
+
+          <div class="badge badge-primary badge-lg">
+            {{ members().length }} users
+          </div>
+        </div>
+
+        @if (members().length > 0) {
+          <ul class="divide-y divide-base-300">
+            @for (member of members(); track member.id) {
+              <li
+                class="flex items-center gap-4 px-6 py-5 transition-colors hover:bg-base-200"
+              >
+                <div class="avatar placeholder">
+                  <div
+                    class="w-12 rounded-full bg-neutral text-neutral-content"
+                  >
+                    <span class="text-lg font-semibold">
+                      {{ member.displayName?.charAt(0)?.toUpperCase() }}
+                    </span>
+                  </div>
+                </div>
+
+                <div class="min-w-0 flex-1">
+                  <p class="truncate font-semibold">
+                    {{ member.displayName }}
+                  </p>
+
+                  <p class="truncate text-sm text-base-content/60">
+                    User ID: {{ member.id }}
+                  </p>
+                </div>
+
+                <span class="badge badge-ghost">User</span>
+              </li>
+            }
+          </ul>
+        } @else {
+          <div class="px-6 py-16 text-center">
+            <div class="mb-3 text-4xl">🐾</div>
+            <h3 class="text-lg font-semibold">No users found</h3>
+            <p class="mt-1 text-sm text-base-content/60">
+              User records will appear here after they are loaded from the API.
+            </p>
+          </div>
+        }
+      </div>
+    </section>
+
+    <p class="mt-6 text-center text-sm text-base-content/50">
+      Prototype built with Angular, ASP.NET Core, Entity Framework Core and
+      SQLite.
+    </p>
+  </main>
+</div>
